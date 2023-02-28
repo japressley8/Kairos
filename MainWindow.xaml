@@ -39,7 +39,7 @@
                                 <GridViewColumn Width="50">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <ToggleButton Name="activationToggle" Width="30" Height="20" IsChecked="{Binding isActive}"/>
+                                            <ToggleButton Name="activationToggle" Width="30" Height="20" IsChecked="{Binding isActive}" Checked="activationToggle_Checked" Unchecked="activationToggle_Checked"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

@@ -19,6 +19,7 @@ namespace Kairos.Actions
         public override string Type { get; set; } = "Change the Wallpaper";
         public string Path { get; set; } = "";
 
+        private bool wasActivated = false;
         private const string DESKTOP_REG_PATH = @"Control Panel\Desktop";
         private const string HISTORY_REG_PATH = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Wallpapers";
         private const string WALLPAPER_STYLE_REG_PATH = "WallpaperStyle";
@@ -221,24 +222,32 @@ namespace Kairos.Actions
         }
         public override void Do() //Hide taskbars
         {
-            if (Path != "")
+            if (!wasActivated)
             {
-                Set(Path);
-            }
-            else
-            {
-                MessageBox.Show("Path is null; Make sure to select an image file");
+                if (Path != "")
+                {
+                    Set(Path);
+                    wasActivated = true;
+                }
+                else
+                {
+                    MessageBox.Show("Path is null; Make sure to select an image file");
+                }
             }
         }
         public override void Undo() //Show taskbars
         {
-            if (Path != "")
+            if (wasActivated)
             {
-                RestoreState();
-            }
-            else
-            {
-                MessageBox.Show("Path is null; Make sure to select an image file");
+                if (Path != "")
+                {
+                    RestoreState();
+                    wasActivated = false;
+                }
+                else
+                {
+                    MessageBox.Show("Path is null; Make sure to select an image file");
+                }
             }
         }
     }

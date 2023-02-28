@@ -51,7 +51,7 @@ namespace Kairos
             m_notifyIcon.BalloonTipTitle = "Kairos";
             m_notifyIcon.Text = "Kairos";
             m_notifyIcon.Icon = Properties.Resources.Kairos_Icon; //TODO, crashes when in release mode
-            m_notifyIcon.MouseDown += new System.Windows.Forms.MouseEventHandler(m_notifyIcon_Click);
+            m_notifyIcon.MouseDown += new MouseEventHandler(m_notifyIcon_Click);
 
             System.Windows.Controls.MenuItem item = new System.Windows.Controls.MenuItem();
             item.Header = "Exit";
@@ -154,6 +154,10 @@ namespace Kairos
         {
             moduleList.SelectedIndex = -1;
             navFrame.Navigate(new SettingsPage(this));
+        }
+        private void activationToggle_Checked(object sender, RoutedEventArgs e)
+        {
+            FileMan.Update((Module)moduleList.SelectedItem);
         }
     }
 }
