@@ -1,0 +1,37 @@
+﻿<Page x:Class="Kairos.Triggers.Pages.HotkeyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kairos.Triggers.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="HotkeyPage">
+
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="1" Width="400" Text="This Trigger will default to inactive, and every time the keyboard shortcut is pressed, it will toggle the Trigger's activity." TextWrapping="Wrap"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <ComboBox Name="modBox2" Width="50" SelectedIndex="4" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content="Alt +"/>
+                <ComboBoxItem Content="Ctrl +"/>
+                <ComboBoxItem Content="Shift +"/>
+                <ComboBoxItem Content="Win +"/>
+                <ComboBoxItem Content="None"/>
+            </ComboBox>
+            <ComboBox Name="modBox1" Width="50" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content="Alt +"/>
+                <ComboBoxItem Content="Ctrl +"/>
+                <ComboBoxItem Content="Shift +"/>
+                <ComboBoxItem Content="Win +"/>
+            </ComboBox>
+            <TextBox Name="keyBox" MaxLength="1" Width="50" TextChanged="keyBox_TextChanged"/>
+        </StackPanel>
+    </Grid>
+</Page>

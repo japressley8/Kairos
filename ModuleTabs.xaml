@@ -1,0 +1,99 @@
+﻿<Page x:Class="Kairos.ModuleTabs"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+      xmlns:local="clr-namespace:Kairos"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ModuleTabs">
+
+    <Grid>
+        <Image Name="loadingCard" gif:AnimationBehavior.SourceUri="Resources/Kairos Loading.gif" Height="80" Visibility="Hidden"/>
+        <Grid>
+            <TabControl>
+                <TabItem Header="Attributes">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+                            <Label>Name</Label>
+                            <TextBox Name="nameBox" TextChanged="nameBox_TextChanged"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                            <Label>Description</Label>
+                            <TextBox Name="descBox" TextChanged="descBox_TextChanged"/>
+                        </StackPanel>
+                        <Button Grid.Row="2" Name="saveButton" Content="Save Changes" Click="saveButton_Click" Width="200"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Actions">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" HorizontalAlignment="Center" Width="200">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <ListView Grid.Row="0" Name="actionList" DisplayMemberPath="Type" SelectionChanged="actionList_SelectionChanged">
+                                <ListView.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Remove" Click="actionList_RemoveItem"/>
+                                    </ContextMenu>
+                                </ListView.ContextMenu>
+                            </ListView>
+                            <Button Name="addActionButton" Click="addActionButton_Click" Grid.Row="3" Content="Add Action" Style="{DynamicResource MaterialDesignRaisedButton}" />
+                        </Grid>
+                        <ListView Name="newActionList" Grid.Column="1" Visibility="Hidden" SelectionChanged="newActionList_SelectionChanged"/>
+                        <Frame Name="actionFrame" Grid.Column="1" NavigationUIVisibility="Hidden"></Frame>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Triggers">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollViewer Grid.Row="0" HorizontalAlignment="Center" Width="300">
+                                <ListBox Name="containerList" HorizontalAlignment="Center" SelectionChanged="containerList_SelectionChanged">
+                                    <ListBox.DataContext>
+                                        <StackPanel></StackPanel>
+                                    </ListBox.DataContext>
+                                    <ListBox.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Remove" Click="containerList_RemoveItem"/>
+                                        </ContextMenu>
+                                    </ListBox.ContextMenu>
+                                </ListBox>
+                            </ScrollViewer>
+                            <Grid Grid.Row="2" HorizontalAlignment="Center" Width="300">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Name="andTriggerButton" Click="andTriggerButton_Click" Grid.Column="0" Content="AND"/>
+                                <Button Name="orTriggerButton" Click="orTriggerButton_Click" Grid.Column="1" Content="OR"/>
+                            </Grid>
+                        </Grid>
+                        <ListView Name="newTriggerList" Grid.Column="1" Visibility="Hidden" SelectionChanged="newTriggerList_SelectionChanged"/>
+                        <Frame Name="triggerFrame" Grid.Column="1" NavigationUIVisibility="Hidden"></Frame>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Page>
