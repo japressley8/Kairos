@@ -40,12 +40,6 @@ namespace Kairos
                     config.Save(ConfigurationSaveMode.Modified);
                 }
                 pathLabel.Content = config.AppSettings.Settings["ModuleDir"].Value;
-
-                foreach (var file in files)
-                {
-                    Module module = FileMan.Load(file);
-                    File.Copy(file, config.AppSettings.Settings["ModuleDir"].Value + "\\module" + module.ID + ".kairos", true);
-                }
             }
             mainWindow.Refresh();
         }
@@ -83,15 +77,18 @@ namespace Kairos
                 if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     dest = dialog.FileName;
-                }
-                foreach (var file in files)
-                {
-                    Module module = FileMan.Load(file);
-                    if(module.ID == ((Module)exportList.SelectedItem).ID)
+
+                    foreach (var file in files)
                     {
-                        File.Copy(file, dest + "\\module" + module.ID + ".kairos");
-                        return;
+                        Module module = FileMan.Load(file);
+                        if (module.ID == ((Module)exportList.SelectedItem).ID)
+                        {
+                            File.Copy(file, dest + "\\module" + module.ID + ".kairos", true);
+                            break;
+                        }
                     }
+                    exportCard.Visibility = Visibility.Hidden;
+                    exportList.SelectedIndex = -1;
                 }
             }
         }
