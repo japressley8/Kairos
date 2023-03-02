@@ -6,6 +6,8 @@ namespace Kairos.Actions
     public class AudioVolume : Action
     {
         public override string Type { get; set; } = "Change the Volume";
+        
+        private bool wasActivated = false;
 
         private static CoreAudioController controller = new CoreAudioController();
         private CoreAudioDevice defaultPlaybackDevice = controller.DefaultPlaybackDevice;
@@ -14,7 +16,7 @@ namespace Kairos.Actions
         private void ChangeVolume(double volume)
         {
             prevVolume = defaultPlaybackDevice.Volume;
-            if(volume > 0 )
+            if (volume > 0)
             {
                 defaultPlaybackDevice.Mute(false);
             }
@@ -26,26 +28,34 @@ namespace Kairos.Actions
         }
         public override void Do()
         {
-            if (targetVolume >= 0)
+            if (!wasActivated)
             {
-                defaultPlaybackDevice = controller.DefaultPlaybackDevice;
-                ChangeVolume(targetVolume);
-            }
-            else
-            {
-                MessageBox.Show("Target Volume is negative in Do(): " + this.ToString());
+                if (targetVolume >= 0)
+                {
+                    defaultPlaybackDevice = controller.DefaultPlaybackDevice;
+                    ChangeVolume(targetVolume);
+                    wasActivated = true;
+                }
+                else
+                {
+                    MessageBox.Show("Target Volume is negative in Do(): " + this.ToString());
+                }
             }
         }
         public override void Undo()
         {
-            if (targetVolume >= 0)
+            if (wasActivated)
             {
-                defaultPlaybackDevice = controller.DefaultPlaybackDevice;
-                RevertVolume();
-            }
-            else
-            {
-                MessageBox.Show("Target Volume is negative in Undo(): " + this.ToString());
+                if (targetVolume >= 0)
+                {
+                    defaultPlaybackDevice = controller.DefaultPlaybackDevice;
+                    RevertVolume();
+                    wasActivated = false;
+                }
+                else
+                {
+                    MessageBox.Show("Target Volume is negative in Undo(): " + this.ToString());
+                }
             }
         }
     }

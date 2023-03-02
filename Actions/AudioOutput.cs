@@ -18,13 +18,16 @@ namespace Kairos.Actions
         }
         private void ChangeOutput(string op)
         {
-            prevDefaultPlaybackDevice = defaultPlaybackDevice;
-            foreach (CoreAudioDevice d in devices)
+            if (op != defaultPlaybackDevice.FullName)
             {
-                if (d.FullName == op)
+                prevDefaultPlaybackDevice = defaultPlaybackDevice;
+                foreach (CoreAudioDevice d in devices)
                 {
-                    d.SetAsDefault();
-                    defaultPlaybackDevice = d;
+                    if (d.FullName == op)
+                    {
+                        d.SetAsDefault();
+                        defaultPlaybackDevice = d;
+                    }
                 }
             }
         }
