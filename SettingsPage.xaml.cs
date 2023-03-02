@@ -87,9 +87,9 @@ namespace Kairos
                             break;
                         }
                     }
-                    exportCard.Visibility = Visibility.Hidden;
-                    exportList.SelectedIndex = -1;
                 }
+                exportCard.Visibility = Visibility.Hidden;
+                exportList.SelectedIndex = -1;
             }
         }
     }
